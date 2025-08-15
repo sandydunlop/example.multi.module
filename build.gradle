@@ -12,7 +12,7 @@ configurations {
 }
 
 dependencies {
-    markista("io.github.sandydunlop:markista:0.1.15")
+    markista("io.github.sandydunlop:markista:0.1.18")
 }
 
 allprojects {
@@ -59,16 +59,10 @@ subprojects {
          options.docletpath = rootProject.configurations.markista
 
         options.addBooleanOption("private", true)
+        options.addBooleanOption('link', true)
 
         options.addStringOption("-project-path", "${project.rootDir}")
-        // options.addBooleanOption('link', true)
-        //  options.addBooleanOption("-flatten-modules", true)
-        //  options.addBooleanOption("-flatten-packages", true)
-        //  options.addStringOption("-link-modules", "consumer:provider:serviceinterface:food")
-        // options.addBooleanOption("tabs", true)
-        // options.addBooleanOption('verbose', true)
-        
-        // options.addStringOption('-Xdoclint:none')
+        options.addBooleanOption("-flatten-packages", true)
         
         // Define the destination directory
         destinationDir = file("${rootProject.buildDir}/docs/${project.name}")

@@ -1,2 +1,2 @@
 // Example package
-package com.example.botany.fruit;
+package com.example.botany;
