@@ -12,7 +12,7 @@ configurations {
 }
 
 dependencies {
-    markista("io.github.sandydunlop:markista:0.1.21")
+    markista("io.github.sandydunlop:markista:0.2.0")
 }
 
 allprojects {
