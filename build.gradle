@@ -49,7 +49,7 @@ subprojects {
 
         // Use the compileClasspath for dependencies
         options.modulePath = files(configurations.compileClasspath)
-        
+
         // General options
         options.windowTitle = "${project.name} API Documentation"
         options.docTitle = "${project.name} API Documentation"
@@ -63,7 +63,8 @@ subprojects {
 
         options.addStringOption("-project-path", "${project.rootDir}")
         options.addBooleanOption("-flatten-packages", true)
-        
+        options.addBooleanOption("-flatten-modules", true)
+
         // Define the destination directory
         destinationDir = file("${rootProject.buildDir}/docs/${project.name}")
         // destinationDir = file("${rootProject.buildDir}/docs")
