@@ -3,5 +3,5 @@
 ///
 module module.two {
     exports com.example.food.vegetable;
-    opens com.example.food;
+    // opens com.example.food;
 }
