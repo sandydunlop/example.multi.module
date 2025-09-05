@@ -1,0 +1,25 @@
+
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    // Any other dependencies for this subproject go here.
+    implementation project(":com.example.moduleone")
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+javadoc {
+    title = 'Module Two API'
+    version = '1.0'
+    options {
+        addStringOption("link", "../com.example.moduleone")
+        addStringOption("-add-modules", "com.example.moduleone")
+    }
+}
+
+

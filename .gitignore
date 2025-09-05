@@ -2,3 +2,6 @@
 .classpath
 .gitignore
 .settings/org.eclipse.buildship.core.prefs
+*.prefs
+com.example.moduleone/.project
+com.example.moduletwo/.project

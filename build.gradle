@@ -12,7 +12,7 @@ configurations {
 }
 
 dependencies {
-    markista("io.github.sandydunlop:markista:0.2.0")
+    markista("io.github.sandydunlop:markista:0.2.1")
 }
 
 allprojects {
@@ -34,52 +34,25 @@ java {
 }
 
 
-// ----------------------------------------------------
-// The Correct Multi-Project Javadoc Setup
-// ----------------------------------------------------
-
-// Create a Javadoc task for each subproject
 subprojects {
-    tasks.register('subprojectJavadoc', Javadoc) {
-        // Crucial dependency to ensure subproject JARs are built first
-        dependsOn configurations.compileClasspath
+    apply plugin: 'java'
 
-        // Source is just this project's source sets
-        source = sourceSets.main.allJava
-
-        // Use the compileClasspath for dependencies
-        options.modulePath = files(configurations.compileClasspath)
-
-        // General options
-        options.windowTitle = "${project.name} API Documentation"
-        options.docTitle = "${project.name} API Documentation"
-
-         // Doclet configuration
-         options.doclet = 'io.github.sandydunlop.markista.doclet.MarkdownDoclet'
-         options.docletpath = rootProject.configurations.markista
-
-        options.addBooleanOption("private", true)
-        options.addBooleanOption('link', true)
-
-        options.addStringOption("-project-path", "${project.rootDir}")
-        options.addBooleanOption("-flatten-packages", true)
-        options.addBooleanOption("-flatten-modules", true)
-
-        // Define the destination directory
+    javadoc {
+        title = 'My Project API'
+        version = '1.0'
         destinationDir = file("${rootProject.buildDir}/docs/${project.name}")
-        // destinationDir = file("${rootProject.buildDir}/docs")
+        options {
+            encoding = 'UTF-8'
+            links 'https://docs.oracle.com/en/java/javase/24/docs/api'
+
+            doclet = 'io.github.sandydunlop.markista.doclet.MarkdownDoclet'
+            docletpath = rootProject.configurations.markista
+            addStringOption("-project-path", "${project.rootDir}")
+            addBooleanOption("-flatten-packages", true)
+            addBooleanOption("-flatten-modules", true)
+        }
+        options.showFromPrivate()
+        options.verbose()
     }
 }
 
-// Create a root task that depends on all subproject Javadoc tasks
-tasks.register('allJavadoc') {
-    dependsOn subprojects.collect { it.tasks.subprojectJavadoc }
-}
-
-tasks.named('build') {
-    dependsOn tasks.named('allJavadoc')
-}
-
-tasks.register('cleanJavadoc', Delete) {
-    delete file("${rootProject.buildDir}/docs")
-}
